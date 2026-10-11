@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trigonometrie Mix 1 – Prüfungsvorbereitung Klasse 10</title>
+<style>
+  :root{
+    --paper:#fdfdfb; --grid:#e3ebf5; --ink:#1d2433; --blue:#1f4fa3; --blue-soft:#e8eefa;
+    --red:#c22f3a; --red-soft:#fbe9ea; --green:#2c7a4b; --green-soft:#e5f3ea; --muted:#5d6678; --line:#c9d3e2;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; color:var(--ink); font:17px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:22px 22px;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:28px 18px 80px}
+  header h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;line-height:1.2;margin:0 0 6px;color:var(--blue)}
+  header p{margin:0 0 6px;color:var(--muted)}
+  details.tools{background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:14px 0 0}
+  details.tools summary{cursor:pointer;font-weight:600;color:var(--blue)}
+  details.tools ul{margin:8px 0 4px;padding-left:20px}
+  details.tools li{margin:4px 0}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(253,253,251,.96);border-bottom:2px solid var(--blue);
+       margin:18px -18px 22px;padding:10px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .meter{flex:1;min-width:160px;height:12px;background:var(--blue-soft);border-radius:6px;overflow:hidden}
+  .meter span{display:block;height:100%;width:0;background:var(--green);transition:width .4s}
+  .score{font-weight:600;white-space:nowrap}
+  h2.part{font-family:Georgia,serif;color:var(--blue);font-size:1.5rem;margin:30px 0 12px;border-bottom:2px solid var(--line);padding-bottom:4px}
+  .case{background:var(--blue-soft);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin:26px 0 14px}
+  .case h3{font-family:Georgia,serif;margin:0 0 4px;color:var(--blue);font-size:1.3rem}
+  .case .src{display:block;text-align:left;margin-bottom:6px}
+  .case p{margin:6px 0}
+  .figbox{background:#fff;border-radius:6px;padding:8px;margin-top:8px;text-align:center}
+  .note{font-size:.82rem;color:var(--muted);margin-top:2px}
+  .task{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;
+        padding:16px 18px 14px;margin:0 0 18px}
+  .task.sub{margin-left:14px}
+  .task.done{border-left-color:var(--green)}
+  .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+  .num{font-family:Georgia,serif;font-size:1.35rem;font-weight:700;color:var(--blue)}
+  .src{font-size:.82rem;color:var(--muted);text-align:right}
+  .q{margin:2px 0 10px}
+  .field{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+  input[type=text]{font:inherit;font-size:1.05rem;padding:7px 10px;width:150px;border:none;border-bottom:2px solid var(--blue);
+        background:var(--blue-soft);border-radius:4px 4px 0 0;color:var(--blue)}
+  input[type=text]:focus{outline:3px solid #9fb8e6;outline-offset:1px}
+  input.ok{border-bottom-color:var(--green);background:var(--green-soft);color:var(--green)}
+  input.no{border-bottom-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .unit{color:var(--muted)}
+  .mc{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+  .mc button{font:inherit;padding:7px 14px;border:2px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;color:var(--ink)}
+  .mc button[aria-pressed=true]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:600}
+  .mc button.ok{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+  .mc button.no{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 2px;line-height:1.15}
+  .fr span:first-child{border-bottom:1.5px solid currentColor;padding:0 3px}
+  .fr span{font-size:.95em}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn{font:inherit;font-size:.95rem;padding:7px 14px;border-radius:6px;cursor:pointer;border:2px solid var(--blue);background:var(--blue);color:#fff}
+  .btn.ghost{background:#fff;color:var(--blue)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn:focus-visible,.mc button:focus-visible{outline:3px solid #9fb8e6;outline-offset:2px}
+  .fb{margin-top:8px;font-weight:600;min-height:1.2em}
+  .fb.ok{color:var(--green)} .fb.no{color:var(--red)}
+  .box{margin-top:10px;padding:12px 14px;border-radius:6px;font-size:.97rem}
+  .tip{background:#fff8e1;border:1px dashed #d9b44a}
+  .sol{background:var(--green-soft);border:1px solid #b9dcc6}
+  .sol h4{margin:0 0 6px;font-size:1rem;color:var(--green)}
+  .sol .alt{margin-top:8px;padding-top:8px;border-top:1px dashed #9ccab0}
+  .calc{font-family:Georgia,serif;font-size:1.02rem}
+  svg{max-width:100%;height:auto}
+  svg text{fill:#1d2433;font-family:Georgia,serif}
+  .end{background:#fff;border:2px solid var(--blue);border-radius:8px;padding:18px;margin-top:26px}
+  .end h2{font-family:Georgia,serif;margin:0 0 8px;color:var(--blue)}
+  footer{margin-top:30px;font-size:.82rem;color:var(--muted)}
+  @media (max-width:520px){ body{font-size:16px} header h1{font-size:1.6rem} .head{flex-direction:column;gap:0} .src{text-align:left} .task.sub{margin-left:0} }
+  @media (prefers-reduced-motion:reduce){ .meter span{transition:none} }
+  @media print{ .bar,.actions,.fb{display:none} body{background:none} .task,.case{break-inside:avoid} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Trigonometrie im Mix</h1>
+    <p>Prüfungsvorbereitung Mathematik Klasse 10, Set 1 mit 5 Basisaufgaben und 3 Sachaufgaben aus echten Brandenburger Abschlussprüfungen.</p>
+    <p>So gehst du vor: Löse jede Aufgabe zuerst selbst im Heft. Trage dann dein Ergebnis ein und klicke auf „Prüfen“. Danach kannst du dir den Lösungsvorschlag ansehen und mit deinem Rechenweg vergleichen. Einheiten musst du nicht mit eintippen, Komma oder Punkt ist egal. Runde Längen und Winkel auf eine Nachkommastelle, andere sinnvolle Rundungen werden aber auch akzeptiert. Aufgaben mit * sind Sternchenaufgaben.</p>
+    <details class="tools">
+      <summary>Dein Werkzeugkasten</summary>
+      <ul>
+        <li>Im rechtwinkligen Dreieck gilt sin α = <span class='fr'><span>Gegenkathete</span><span>Hypotenuse</span></span>, cos α = <span class='fr'><span>Ankathete</span><span>Hypotenuse</span></span> und tan α = <span class='fr'><span>Gegenkathete</span><span>Ankathete</span></span>.</li>
+        <li>Satz des Pythagoras: a² + b² = c², wenn c die Hypotenuse ist.</li>
+        <li>Sinussatz: <span class='fr'><span>a</span><span>sin α</span></span> = <span class='fr'><span>b</span><span>sin β</span></span> = <span class='fr'><span>c</span><span>sin γ</span></span></li>
+        <li>Flächeninhalt im allgemeinen Dreieck: A = ½ · a · b · sin γ</li>
+        <li>Innenwinkelsumme: im Dreieck 180°, im Viereck 360°.</li>
+        <li>Achte darauf, dass dein Taschenrechner auf DEG (Grad) eingestellt ist.</li>
+      </ul>
+    </details>
+  </header>
+
+  <div class="bar" role="status" aria-live="polite">
+    <div class="meter" aria-hidden="true"><span id="meter"></span></div>
+    <div class="score" id="score">0 Punkte</div>
+    <button class="btn ghost" id="reset" type="button">Neu starten</button>
+  </div>
+
+  <main id="tasks"></main>
+
+  <section class="end" id="end">
+    <h2>Deine Auswertung</h2>
+    <p id="endText">Bearbeite die Aufgaben und klicke dann hier auf „Auswerten“.</p>
+    <button class="btn" id="evalBtn" type="button">Auswerten</button>
+  </section>
+
+  <footer>Aufgaben aus den schriftlichen Prüfungen am Ende der Jahrgangsstufe 10 (Brandenburg), MBJS. Für den Unterricht aufbereitet, Skizzen neu gezeichnet und nicht maßstabsgerecht. Die Seite speichert keine Eingaben und sendet keine Daten.</footer>
+</div>
+
+<script>
+/* Aufgabentypen: "num" (Zahlenfeld; accept: Zahlen oder Bereiche [min,max]), "mc" (Auswahl). pts = Punkte je Teil */
+const T = [
+{section:"Teil 1: Basisaufgaben", num:"1", src:"Prüfung 2017/18, Aufgabe 1g",
+  q:"Kreuzen Sie an, welche Gleichung für die Berechnung des Winkels β geeignet ist.",
+  fig:`<svg viewBox="0 0 270 170" width="270" role="img" aria-label="Rechtwinkliges Dreieck mit Kathete b, Hypotenuse a und Winkel beta"><polygon points="40.0,140.0 230.0,140.0 40.0,40.0" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><path d="M52.0,140.0 L52.0,128.0 L40.0,128.0" fill="none" stroke="#1d2433" stroke-width="1.3"/><path d="M196.0,140.0 A34,34 0 0 1 199.9,124.2" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="198.6" y="134.7" font-size="15" font-style="italic" text-anchor="middle" dominant-baseline="middle">β</text><text x="26.0" y="90.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">b</text><text x="145.0" y="78.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">a</text></svg>`,
+  parts:[{type:"mc", options:["sin β = <span class='fr'><span>a</span><span>b</span></span>","cos β = <span class='fr'><span>a</span><span>b</span></span>","sin β = <span class='fr'><span>b</span><span>a</span></span>"], correct:2}],
+  tip:"Suche zuerst die Hypotenuse, sie liegt dem rechten Winkel gegenüber. Welche Seite liegt dem Winkel β gegenüber?",
+  sol:`<p>Die Seite a liegt dem rechten Winkel gegenüber, sie ist die Hypotenuse. Die Seite b liegt dem Winkel β gegenüber, sie ist seine Gegenkathete.</p><p class="calc">sin β = <span class='fr'><span>Gegenkathete</span><span>Hypotenuse</span></span>, also <b>sin β = <span class='fr'><span>b</span><span>a</span></span></b></p>`},
+
+{num:"2", src:"Prüfung 2019/20, Aufgabe 1c (digital als Auswahl)",
+  q:"Geben Sie die Gleichung für tan α an.",
+  fig:`<svg viewBox="0 0 280 175" width="280" role="img" aria-label="Rechtwinkliges Dreieck mit Winkel alpha und Seiten r, s, t"><polygon points="30.0,150.0 190.0,40.0 229.7,97.7" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><path d="M180.1,46.8 L186.9,56.7 L196.8,49.9" fill="none" stroke="#1d2433" stroke-width="1.3"/><path d="M63.0,127.3 A40,40 0 0 1 68.7,139.9" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="55.5" y="138.3" font-size="15" font-style="italic" text-anchor="middle" dominant-baseline="middle">α</text><text x="100.0" y="82.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">s</text><text x="228.0" y="60.8" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">r</text><text x="129.8" y="139.8" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">t</text></svg>`,
+  parts:[{type:"mc", options:["tan α = <span class='fr'><span>r</span><span>s</span></span>","tan α = <span class='fr'><span>s</span><span>r</span></span>","tan α = <span class='fr'><span>r</span><span>t</span></span>","tan α = <span class='fr'><span>s</span><span>t</span></span>"], correct:0}],
+  tip:"Der rechte Winkel liegt zwischen s und r. Der Tangens braucht keine Hypotenuse, sondern nur die beiden Katheten.",
+  sol:`<p>Der rechte Winkel liegt zwischen s und r, also ist t die Hypotenuse. Die Seite r liegt α gegenüber (Gegenkathete), die Seite s liegt an α an (Ankathete).</p><p class="calc">tan α = <span class='fr'><span>Gegenkathete</span><span>Ankathete</span></span>, also <b>tan α = <span class='fr'><span>r</span><span>s</span></span></b></p>`},
+
+{num:"3", src:"Nachschreibtermin 2024/25, Aufgabe 1g",
+  q:"Kreuzen Sie an, mit welcher Gleichung die Größe des Winkels ε des abgebildeten Dreiecks berechnet werden kann.",
+  fig:`<svg viewBox="0 0 280 170" width="280" role="img" aria-label="Rechtwinkliges Dreieck mit Seiten c, d, e und Winkel epsilon"><polygon points="40.0,140.0 250.0,140.0 40.0,50.0" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><path d="M52.0,140.0 L52.0,128.0 L40.0,128.0" fill="none" stroke="#1d2433" stroke-width="1.3"/><path d="M210.0,140.0 A40,40 0 0 1 213.2,124.2" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="218.5" y="134.8" font-size="15" font-style="italic" text-anchor="middle" dominant-baseline="middle">ε</text><text x="26.0" y="95.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">d</text><text x="150.0" y="82.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">c</text><text x="145.0" y="158.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">e</text></svg>`,
+  parts:[{type:"mc", options:["tan ε = <span class='fr'><span>c</span><span>d</span></span>","sin ε = <span class='fr'><span>c</span><span>d</span></span>","tan ε = <span class='fr'><span>d</span><span>e</span></span>","cos ε = <span class='fr'><span>d</span><span>c</span></span>"], correct:2}],
+  tip:"Bestimme für ε die Hypotenuse, die Gegenkathete und die Ankathete. Prüfe dann jede Gleichung einzeln.",
+  sol:`<p>c ist die Hypotenuse, d die Gegenkathete und e die Ankathete von ε.</p><p class="calc"><b>tan ε = <span class='fr'><span>d</span><span>e</span></span></b> ist richtig.</p><p>Bei den anderen Gleichungen stimmt etwas nicht. Ein Bruch mit der Hypotenuse im Zähler ist immer größer als 1, das kann bei Sinus und Kosinus nicht sein, und cos ε müsste <span class='fr'><span>e</span><span>c</span></span> heißen.</p>`,
+  alt:"Ebenfalls richtig, aber nicht zur Auswahl: sin ε = d/c und cos ε = e/c"},
+
+{num:"4", src:"Prüfung 2026, Aufgabe 1j",
+  q:"Kreuzen Sie an, mit welcher Gleichung die Länge der Seite w des abgebildeten Dreiecks berechnet werden kann.",
+  fig:`<svg viewBox="0 0 260 180" width="260" role="img" aria-label="Rechtwinkliges Dreieck mit Seiten u, v und w"><polygon points="200.0,150.0 110.0,150.0 200.0,30.0" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><path d="M188.0,150.0 L188.0,138.0 L200.0,138.0" fill="none" stroke="#1d2433" stroke-width="1.3"/><text x="140.0" y="85.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">w</text><text x="214.0" y="92.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">v</text><text x="155.0" y="168.0" font-size="16" font-style="italic" text-anchor="middle" dominant-baseline="middle">u</text></svg>`,
+  parts:[{type:"mc", options:["w = √(v² − u²)","w = √(u² − v²)","w = √(u² + v²)"], correct:2}],
+  tip:"Liegt w dem rechten Winkel gegenüber? Dann ist w die Hypotenuse.",
+  sol:`<p>Der rechte Winkel liegt zwischen u und v. Also ist w die Hypotenuse, und nach dem Satz des Pythagoras gilt w² = u² + v².</p><p class="calc"><b>w = √(u² + v²)</b></p><p>Eine Differenz unter der Wurzel braucht man nur, wenn eine Kathete gesucht ist.</p>`},
+
+{num:"5", src:"Nachschreibtermin 2023/24, Aufgabe 1d",
+  q:"Geben Sie die Größe von α an.",
+  fig:`<svg viewBox="0 0 280 195" width="280" role="img" aria-label="Gleichschenkliges Dreieck mit zwei Seiten von 3 cm und 50 Grad an der Spitze"><polygon points="50.0,170.0 230.0,170.0 140.0,30.0" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><path d="M123.8,55.2 A30,30 0 0 0 156.2,55.2" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="140.0" y="75.0" font-size="13" text-anchor="middle" dominant-baseline="middle">50°</text><path d="M80.0,170.0 A30,30 0 0 0 66.2,144.8" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="88.6" y="148.9" font-size="15" font-style="italic" text-anchor="middle" dominant-baseline="middle">α</text><path d="M200.0,170.0 A30,30 0 0 1 213.8,144.8" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="191.4" y="148.9" font-size="15" font-style="italic" text-anchor="middle" dominant-baseline="middle">β</text><text x="84.0" y="95.0" font-size="14" text-anchor="end" dominant-baseline="middle">b = 3 cm</text><text x="196.0" y="95.0" font-size="14" text-anchor="start" dominant-baseline="middle">a = 3 cm</text></svg>`,
+  parts:[{type:"num", label:"α =", unit:"°", accept:[65]}],
+  tip:"Die Seiten a und b sind gleich lang. Was bedeutet das für die Winkel α und β?",
+  sol:`<p>Weil a und b gleich lang sind, ist das Dreieck gleichschenklig. Die Basiswinkel α und β sind deshalb gleich groß.</p><p class="calc">α + β = 180° − 50° = 130°<br>α = 130° : 2 = <b>65°</b></p>`},
+
+{section:"Teil 2: Sachaufgaben", intro:{title:"Sachaufgabe 6: Seilbahn", src:"Prüfung 2023/24, Aufgabe 6 (10 Punkte)",
+   text:"<p>Eine Seilbahn verbindet die beiden Orte A und B. Die Strecke AB ist 384 m lang, die waagerechte Entfernung FB beträgt 255 m.</p>", fig:`<svg viewBox="0 0 500 290" width="440" role="img" aria-label="Seilbahn: Punkte A, B, C, F. FB 255 m, AB 384 m, rechter Winkel bei F"><path d="M50,250 L30,250 M208,250 L480,250" stroke="#8a94a6" stroke-width="1.5"/><polygon points="50.0,250.0 208.1,250.0 50.0,72.0" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><polygon points="50.0,72.0 208.1,250.0 448.3,145.0" fill="#f3f7ee" stroke="#1d2433" stroke-width="2"/><path d="M62.0,250.0 L62.0,238.0 L50.0,238.0" fill="none" stroke="#1d2433" stroke-width="1.3"/><path d="M72.6,97.4 A34,34 0 0 0 83.4,78.1" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="69.2" y="82.8" font-size="22" font-style="italic" text-anchor="middle" dominant-baseline="middle">α</text><path d="M182.1,250.0 A26,26 0 0 1 190.8,230.6" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="171.6" y="233.6" font-size="20" font-style="italic" text-anchor="middle" dominant-baseline="middle">β₁</text><path d="M193.5,233.6 A22,22 0 0 1 228.3,241.2" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="215.8" y="214.8" font-size="20" font-style="italic" text-anchor="middle" dominant-baseline="middle">β₂</text><text x="125.0" y="266.0" font-size="20" text-anchor="middle" dominant-baseline="middle">255 m</text><text x="140" y="152" font-size="20" text-anchor="middle" dominant-baseline="middle" transform="rotate(48.4 140 152)">384 m</text><text x="48.0" y="58.0" font-size="23" font-weight="bold" text-anchor="middle" dominant-baseline="middle">A</text><text x="36.0" y="254.0" font-size="23" font-weight="bold" text-anchor="middle" dominant-baseline="middle">F</text><text x="212.1" y="266.0" font-size="23" font-weight="bold" text-anchor="middle" dominant-baseline="middle">B</text><text x="462.3" y="139.0" font-size="23" font-weight="bold" text-anchor="middle" dominant-baseline="middle">C</text><circle cx="448.3" cy="145" r="3.5" fill="#1d2433"/></svg>`},
+  num:"6a", sub:true, src:"2 Punkte",
+  q:"Die Strecke FA kennzeichnet den Höhenunterschied zwischen den Orten B und A.<br>Berechnen Sie diesen Höhenunterschied.",
+  parts:[{type:"num", label:"FA =", unit:"m", accept:[[287.0,287.2]], pts:2}],
+  tip:"Das Dreieck FBA ist rechtwinklig. Welche Seite ist die Hypotenuse?",
+  sol:`<p>Im rechtwinkligen Dreieck FBA ist AB die Hypotenuse. Gesucht ist die Kathete FA.</p><p class="calc">FA² = AB² − FB²<br>FA² = 384² − 255² = 147 456 − 65 025 = 82 431<br>FA = √82 431 ≈ <b>287,1 m</b></p>`,
+  alt:"Auch richtig: 287 m oder 287,11 m"},
+
+{num:"6b", sub:true, src:"2 Punkte",
+  q:"Bestimmen Sie die Größe des Winkels β₁, mit der die Seilbahn von B nach A fährt.",
+  parts:[{type:"num", label:"β₁ =", unit:"°", accept:[[48.3,48.5]], pts:2}],
+  tip:"Von β₁ aus gesehen kennst du die Ankathete FB und die Hypotenuse AB.",
+  sol:`<p class="calc">cos β₁ = <span class='fr'><span>FB</span><span>AB</span></span> = <span class='fr'><span>255 m</span><span>384 m</span></span> ≈ 0,6641<br>β₁ ≈ <b>48,4°</b></p>`,
+  alt:"Auch richtig: 48,39°. Mit dem Ergebnis aus 6a geht es auch über tan β₁ = 287,1 / 255 oder sin β₁ = 287,1 / 384."},
+
+{num:"6c", sub:true, src:"2 Punkte",
+  q:"Die Seilbahn fährt von B nach A mit einer durchschnittlichen Geschwindigkeit von 3,2 m/s.<br>Ermitteln Sie die Dauer für eine Fahrt mit der Seilbahn. Geben Sie das Ergebnis in Minuten an.",
+  parts:[{type:"num", label:"Dauer:", unit:"min", accept:[2], pts:2}],
+  tip:"Die Seilbahn fährt auf der schrägen Strecke AB. Zeit = Strecke : Geschwindigkeit.",
+  sol:`<p class="calc">t = <span class='fr'><span>s</span><span>v</span></span> = <span class='fr'><span>384 m</span><span>3,2 m/s</span></span> = 120 s<br>120 s = <b>2 min</b></p><p>Achtung, die Seilbahn fährt die Strecke AB = 384 m, nicht die waagerechte Strecke FB.</p>`},
+
+{num:"6d*", sub:true, src:"4 Punkte",
+  q:"Der Ort B und der Ort C sind mit einer weiteren Seilbahn verbunden. Folgende Angaben sind bekannt: α = 38° und β₂ = 108°.<br>Berechnen Sie die Länge der Seilbahnstrecke von B nach C.",
+  parts:[{type:"num", label:"BC =", unit:"m", accept:[[422.5,423.0]], pts:4}],
+  tip:"Das Dreieck ABC ist nicht rechtwinklig. Berechne zuerst den dritten Winkel bei C und nutze dann den Sinussatz.",
+  sol:`<p>Im Dreieck ABC kennst du die Seite AB = 384 m und zwei Winkel.</p><p class="calc">γ = 180° − 38° − 108° = 34°</p><p>Die gesuchte Seite BC liegt α gegenüber, die bekannte Seite AB liegt γ gegenüber.</p><p class="calc"><span class='fr'><span>BC</span><span>sin 38°</span></span> = <span class='fr'><span>384 m</span><span>sin 34°</span></span><br>BC = <span class='fr'><span>384 m · sin 38°</span><span>sin 34°</span></span> ≈ <b>422,8 m</b></p>`,
+  alt:"Auch richtig: 423 m oder 422,78 m"},
+
+{intro:{title:"Sachaufgabe 7: Rampe", src:"Prüfung 2024/25, Aufgabe 4 (10 Punkte)",
+   text:"<p>Familie Yücel möchte ihr Haus auch für Personen im Rollstuhl zugänglich machen. An die Stufe der Eingangstür soll eine feste Rampe gebaut werden.</p>", fig:`<svg viewBox="0 0 500 200" width="500" role="img" aria-label="Rampe: waagerechte Strecke 170 cm, Stufe 16 cm hoch, Rampenlänge x, Anstiegswinkel alpha"><polygon points="20.0,150.0 400.0,150.0 400.0,95.0" fill="#e3e7ee" stroke="#1d2433" stroke-width="2"/><rect x="400" y="95" width="85" height="55" fill="#f1f1f1" stroke="#1d2433" stroke-width="2"/><text x="442.0" y="122.0" font-size="19" text-anchor="middle" dominant-baseline="middle">Stufe</text><path d="M390.0,150.0 L390.0,140.0 L400.0,140.0" fill="none" stroke="#1d2433" stroke-width="1.3"/><path d="M90.0,150.0 A70,70 0 0 0 89.3,140.0" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="105.8" y="142.8" font-size="22" font-style="italic" text-anchor="middle" dominant-baseline="middle">α</text><text x="210.0" y="118.0" font-size="23" font-style="italic" text-anchor="middle" dominant-baseline="middle">x</text><text x="392.0" y="122.0" font-size="17" text-anchor="end" dominant-baseline="middle">16 cm</text><path d="M20,172 L400,172" stroke="#1d2433" stroke-width="1.3" marker-start="url(#ar)" marker-end="url(#ar)"/><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d2433"/></marker></defs><text x="210.0" y="190.0" font-size="19" text-anchor="middle" dominant-baseline="middle">170 cm</text></svg>`},
+  num:"7a", sub:true, src:"4 Punkte",
+  q:"Berechnen Sie die Länge x der Rampe.<br>Berechnen Sie die Größe des Anstiegswinkels α.",
+  parts:[{type:"num", label:"x =", unit:"cm", accept:[[170.7,171],[1.707,1.71]], pts:2},{type:"num", label:"α =", unit:"°", accept:[[5.3,5.4]], pts:2}],
+  tip:"Die Rampe ist die Hypotenuse eines rechtwinkligen Dreiecks. Für α kennst du Gegenkathete und Ankathete.",
+  sol:`<p class="calc">x² = 170² + 16² = 28 900 + 256 = 29 156<br>x = √29 156 ≈ <b>170,8 cm</b></p><p class="calc">tan α = <span class='fr'><span>16 cm</span><span>170 cm</span></span> ≈ 0,0941<br>α ≈ <b>5,4°</b></p>`,
+  alt:"Auch richtig: x ≈ 170,75 cm oder 1,71 m und α ≈ 5,38°. Für α geht auch sin α = 16 / 170,75."},
+
+{num:"7b", sub:true, src:"3 Punkte",
+  q:"Damit eine Person im Rollstuhl eine Rampe ohne Hilfe hochfahren kann, darf die Steigung einer Rampe maximal 6 % betragen.<br>Vervollständigen Sie den Satz. Eine Steigung von 6 % bedeutet, dass auf einer waagerechten Strecke von 100 m ein Höhenunterschied von ___ m erreicht wird.<br>Frau Yücel behauptet: „Unsere Rampe wird zu steil, da die Steigung mehr als 6 % beträgt.“ Berechnen Sie die Steigung der Rampe und entscheiden Sie, ob Frau Yücel Recht hat.",
+  parts:[{type:"num", label:"Höhenunterschied:", unit:"m", accept:[6]},{type:"num", label:"Steigung der Rampe:", unit:"%", accept:[[9.4,9.42]]},{type:"mc", options:["Ja, die Rampe ist zu steil.","Nein, die Rampe ist flach genug."], correct:0}],
+  tip:"Steigung = Höhenunterschied : waagerechte Strecke. Das Ergebnis schreibst du als Prozentzahl.",
+  sol:`<p class="calc">6 % = <span class='fr'><span>6</span><span>100</span></span>, also <b>6 m</b> Höhe auf 100 m waagerechte Strecke.</p><p class="calc">Steigung = <span class='fr'><span>16 cm</span><span>170 cm</span></span> ≈ 0,094 = <b>9,4 %</b></p><p>9,4 % ist mehr als 6 %. <b>Frau Yücel hat Recht</b>, die Rampe ist zu steil.</p>`,
+  alt:"Im Original darfst du beide Lücken selbst füllen. Dann ist jedes passende Paar richtig, zum Beispiel 50 m und 3 m."},
+
+{num:"7c*", sub:true, src:"3 Punkte",
+  q:"Für die Treppe am Hinterausgang müssen zwei Stufen überwunden werden. Dafür wird eine mobile Rampe an die Treppe angelegt.<br>Berechnen Sie die Länge y der Rampe.",
+  fig:`<svg viewBox="0 0 430 212" width="430" role="img" aria-label="Mobile Rampe an zwei Stufen: Winkel 5 Grad und 141 Grad, Strecke 160 cm, Rampenlänge y"><path d="M250,170 L250,130 L320,130 L320,90 L415,90 L415,170 Z" fill="#d9dde5" stroke="#1d2433" stroke-width="2"/><line x1="250.0" y1="170.0" x2="320.0" y2="90.0" stroke="#1d2433" stroke-width="1.5" stroke-dasharray="6,5"/><line x1="30.0" y1="170.0" x2="320.0" y2="90.0" stroke="#1d2433" stroke-width="3"/><line x1="30.0" y1="170.0" x2="250.0" y2="170.0" stroke="#1d2433" stroke-width="1.5"/><path d="M100.0,170.0 A70,70 0 0 0 97.5,151.4" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="111.3" y="159.0" font-size="19" text-anchor="middle" dominant-baseline="middle">5°</text><path d="M226.0,170.0 A24,24 0 0 1 265.8,151.9" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="227.5" y="131.6" font-size="19" text-anchor="middle" dominant-baseline="middle">141°</text><text x="160.0" y="112.0" font-size="23" font-style="italic" text-anchor="middle" dominant-baseline="middle">y</text><defs><marker id="ar2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d2433"/></marker></defs><path d="M30,188 L250,188" stroke="#1d2433" stroke-width="1.3" marker-start="url(#ar2)" marker-end="url(#ar2)"/><text x="140.0" y="199.0" font-size="19" text-anchor="middle" dominant-baseline="middle">160 cm</text></svg>`,
+  parts:[{type:"num", label:"y =", unit:"cm", accept:[[180.0,180.2],[1.8,1.802]], pts:3}],
+  tip:"Das Dreieck aus Rampe, Boden und gestrichelter Linie ist nicht rechtwinklig. Berechne den fehlenden Winkel und nutze den Sinussatz.",
+  sol:`<p>Im Dreieck sind zwei Winkel und die Seite 160 cm bekannt. Der dritte Winkel liegt oben an der Rampe.</p><p class="calc">180° − 5° − 141° = 34°</p><p>Die Rampe y liegt dem Winkel 141° gegenüber, die Strecke 160 cm liegt dem Winkel 34° gegenüber.</p><p class="calc"><span class='fr'><span>y</span><span>sin 141°</span></span> = <span class='fr'><span>160 cm</span><span>sin 34°</span></span><br>y = <span class='fr'><span>160 cm · sin 141°</span><span>sin 34°</span></span> ≈ <b>180,1 cm</b></p>`,
+  alt:"Auch richtig: 180 cm, 180,07 cm oder 1,80 m"},
+
+{intro:{title:"Sachaufgabe 8: Dreiecke", src:"Prüfung 2021/22, Aufgabe 5 (11 Punkte)",
+   text:"<p>Gegeben ist ein Dreieck ABC. Das Dreieck ist nicht rechtwinklig. Die Höhe h<sub>c</sub> beträgt ca. 7,4 m.</p>", fig:`<svg viewBox="0 0 300 215" width="300" role="img" aria-label="Dreieck ABC mit Höhe h_c, b gleich 14,1 m und Winkel 52 Grad bei B"><polygon points="30.0,185.0 261.1,185.0 186.0,88.8" fill="#eef3fb" stroke="#1d2433" stroke-width="2"/><line x1="186.0" y1="88.8" x2="186.0" y2="185.0" stroke="#1d2433" stroke-width="1.5" stroke-dasharray="6,5"/><path d="M196.0,185.0 L196.0,175.0 L186.0,175.0" fill="none" stroke="#1d2433" stroke-width="1.3"/><path d="M62.0,185.0 A32,32 0 0 0 57.2,168.2" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="55.2" y="179.0" font-size="14" font-style="italic" text-anchor="middle" dominant-baseline="middle">α</text><path d="M235.1,185.0 A26,26 0 0 1 245.1,164.5" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="225.2" y="167.5" font-size="12" text-anchor="middle" dominant-baseline="middle">52°</text><path d="M186.0,110.8 A22,22 0 0 0 199.5,106.1" fill="none" stroke="#1d2433" stroke-width="1.5"/><text x="197.1" y="120.9" font-size="13" font-style="italic" text-anchor="middle" dominant-baseline="middle">γ₁</text><text x="200.0" y="140.0" font-size="14" font-style="italic" text-anchor="middle" dominant-baseline="middle">h<tspan font-size="10" baseline-shift="sub">c</tspan></text><text x="88.0" y="120.0" font-size="13" text-anchor="end" dominant-baseline="middle">b = 14,1 m</text><text x="240.0" y="128.0" font-size="15" font-style="italic" text-anchor="middle" dominant-baseline="middle">a</text><text x="20.0" y="197.0" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="middle">A</text><text x="271.1" y="197.0" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="middle">B</text><text x="186.0" y="76.8" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="middle">C</text><text x="186.0" y="201.0" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="middle">D</text></svg>`},
+  num:"8a", sub:true, src:"2 Punkte",
+  q:"Weisen Sie nach, dass die Länge der Strecke AD ca. 12,0 m beträgt. Trage dein Ergebnis ein.",
+  parts:[{type:"num", label:"AD =", unit:"m", accept:[[11.99,12.01]], pts:2}],
+  tip:"Die Höhe teilt das Dreieck ABC in zwei rechtwinklige Dreiecke. Betrachte das Dreieck ADC.",
+  sol:`<p>Im rechtwinkligen Dreieck ADC ist b = 14,1 m die Hypotenuse.</p><p class="calc">AD² = 14,1² − 7,4² = 198,81 − 54,76 = 144,05<br>AD = √144,05 ≈ <b>12,0 m</b></p>`,
+  alt:"Auch richtig: 12 m oder 12,00 m"},
+
+{num:"8b", sub:true, src:"2 Punkte",
+  q:"Berechnen Sie die Größe des Winkels α.",
+  parts:[{type:"num", label:"α =", unit:"°", accept:[[31.6,31.7]], pts:2}],
+  tip:"Von α aus gesehen ist h<sub>c</sub> die Gegenkathete und b die Hypotenuse.",
+  sol:`<p class="calc">sin α = <span class='fr'><span>7,4 m</span><span>14,1 m</span></span> ≈ 0,5248<br>α ≈ <b>31,7°</b></p>`,
+  alt:"Auch richtig: 31,66°. Mit AD geht es auch über cos α = 12,0 / 14,1 oder tan α = 7,4 / 12,0."},
+
+{num:"8c", sub:true, src:"2 Punkte",
+  q:"Ermitteln Sie die Größe des Winkels γ₁.",
+  parts:[{type:"num", label:"γ₁ =", unit:"°", accept:[38], pts:2}],
+  tip:"γ₁ liegt im rechtwinkligen Dreieck DBC. Nutze die Innenwinkelsumme.",
+  sol:`<p>Im Dreieck DBC ist der Winkel bei D ein rechter Winkel.</p><p class="calc">γ₁ = 180° − 90° − 52° = <b>38°</b></p>`},
+
+{num:"8d", sub:true, src:"2 Punkte",
+  q:"Berechnen Sie die Länge der Seite a.",
+  parts:[{type:"num", label:"a =", unit:"m", accept:[[9.38,9.4]], pts:2}],
+  tip:"Im Dreieck DBC ist a die Hypotenuse und h<sub>c</sub> die Gegenkathete zum Winkel 52°.",
+  sol:`<p class="calc">sin 52° = <span class='fr'><span>7,4 m</span><span>a</span></span><br>a = <span class='fr'><span>7,4 m</span><span>sin 52°</span></span> ≈ <b>9,39 m</b></p>`,
+  alt:"Auch richtig: 9,4 m. Mit γ₁ geht es auch über cos 38° = 7,4 / a."},
+
+{num:"8e*", sub:true, src:"3 Punkte",
+  q:"Ermitteln Sie den Flächeninhalt des Dreiecks ABC.",
+  parts:[{type:"num", label:"A =", unit:"m²", accept:[[65.5,66.0]], pts:3}],
+  tip:"Für A = ½ · c · h<sub>c</sub> fehlt dir noch das Stück DB. Du kannst es im Dreieck DBC berechnen.",
+  sol:`<p class="calc">tan 52° = <span class='fr'><span>7,4 m</span><span>DB</span></span> &nbsp;→&nbsp; DB = <span class='fr'><span>7,4 m</span><span>tan 52°</span></span> ≈ 5,78 m<br>c = AD + DB ≈ 12,0 m + 5,78 m = 17,78 m<br>A = ½ · c · h<sub>c</sub> = ½ · 17,78 m · 7,4 m ≈ <b>65,8 m²</b></p>`,
+  alt:"Mit der Sinus-Flächenformel: A = ½ · b · c · sin α = ½ · 14,1 m · 17,78 m · sin 31,7° ≈ 65,8 m².<br>Oder als Summe zweier Teildreiecke: ½ · 12,0 · 7,4 + ½ · 5,78 · 7,4 ≈ 44,4 + 21,4 = 65,8 m².<br>Je nach Rundung der Zwischenergebnisse sind Werte zwischen 65,5 m² und 66 m² richtig."}
+];
+
+const pts = p => p.pts||1;
+const TOTAL = T.reduce((s,t)=>s+t.parts.reduce((a,p)=>a+pts(p),0),0);
+const state = T.map(t=>({checked:false, ok:t.parts.map(()=>false), mc:t.parts.map(()=>null)}));
+
+function parseNum(raw){
+  if(!raw) return NaN;
+  let s = raw.toLowerCase().replace(/\s+/g,"").replace(/−/g,"-")
+    .replace(/^[a-zα-ω₀-₉0-9]*=/,"").replace(/^≈/,"")
+    .replace(/(€|euro|m²|m2|mm|cm|dm|km|min|sekunden|°|grad|%|m)$/,"")
+    .replace(",",".");
+  if(/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)){ const [a,b]=s.split("/").map(Number); return a/b; }
+  return /^-?\d*\.?\d+$/.test(s) ? Number(s) : NaN;
+}
+function accepts(p,v){
+  return p.accept.some(a=> Array.isArray(a) ? (v>=a[0]-1e-9 && v<=a[1]+1e-9) : Math.abs(a-v)<1e-6);
+}
+
+function render(){
+  const box = document.getElementById("tasks");
+  box.innerHTML = "";
+  T.forEach((t,i)=>{
+    if(t.section){ const h=document.createElement("h2"); h.className="part"; h.textContent=t.section; box.appendChild(h); }
+    if(t.intro){
+      const c=document.createElement("section"); c.className="case";
+      c.innerHTML=`<h3>${t.intro.title}</h3><span class="src">${t.intro.src}</span>${t.intro.text}${t.intro.fig?`<div class="figbox">${t.intro.fig}<div class="note">(Skizze nicht maßstabsgerecht)</div></div>`:""}`;
+      box.appendChild(c);
+    }
+    const el = document.createElement("article");
+    el.className = "task"+(t.sub?" sub":""); el.id = "t"+i;
+    let html = `<div class="head"><span class="num">Aufgabe ${t.num}</span><span class="src">${t.src}</span></div>
+      <div class="q">${t.q}</div>${t.fig?`<div class="figbox">${t.fig}<div class="note">(Skizze nicht maßstabsgerecht)</div></div>`:""}`;
+    t.parts.forEach((p,j)=>{
+      if(p.type==="num"){
+        html += `<div class="field"><label for="in${i}_${j}">${p.label||"Ergebnis:"}</label>
+          <input type="text" inputmode="decimal" autocomplete="off" id="in${i}_${j}">
+          ${p.unit?`<span class="unit">${p.unit}</span>`:""}</div>`;
+      } else {
+        html += `<div class="mc" role="group" aria-label="Antwortmöglichkeiten">${p.options.map((o,k)=>
+          `<button type="button" aria-pressed="false" data-i="${i}" data-j="${j}" data-k="${k}">${o}</button>`).join("")}</div>`;
+      }
+    });
+    html += `<div class="actions">
+        <button class="btn" type="button" data-act="check" data-i="${i}">Prüfen</button>
+        <button class="btn ghost" type="button" data-act="tip" data-i="${i}">Tipp</button>
+        <button class="btn ghost" type="button" data-act="sol" data-i="${i}" disabled title="Erst nach dem Prüfen verfügbar">Lösungsvorschlag</button>
+      </div>
+      <div class="fb" id="fb${i}" aria-live="polite"></div>
+      <div class="box tip" id="tip${i}" hidden>💡 ${t.tip}</div>
+      <div class="box sol" id="sol${i}" hidden><h4>Lösungsvorschlag</h4>${t.sol}${t.alt?`<div class="alt">${t.alt}</div>`:""}</div>`;
+    el.innerHTML = html;
+    box.appendChild(el);
+  });
+}
+
+function check(i){
+  const t=T[i], st=state[i];
+  let allOk=true, anyEmpty=false;
+  t.parts.forEach((p,j)=>{
+    let ok=false;
+    if(p.type==="num"){
+      const inp=document.getElementById(`in${i}_${j}`);
+      const v=parseNum(inp.value);
+      if(inp.value.trim()==="") anyEmpty=true;
+      ok = !isNaN(v) && accepts(p,v);
+      inp.classList.remove("ok","no"); if(inp.value.trim()!=="") inp.classList.add(ok?"ok":"no");
+    } else {
+      const sel=st.mc[j];
+      if(sel===null) anyEmpty=true;
+      ok = sel===p.correct;
+      document.querySelectorAll(`#t${i} .mc[data-j="${j}"] button, #t${i} .mc button[data-j="${j}"]`).forEach(b=>{
+        b.classList.remove("ok","no");
+        if(+b.dataset.k===sel) b.classList.add(ok?"ok":"no");
+      });
+    }
+    st.ok[j]=ok; if(!ok) allOk=false;
+  });
+  const fb=document.getElementById("fb"+i);
+  if(anyEmpty && !allOk){ fb.className="fb no"; fb.textContent="Trage zuerst alle Ergebnisse ein oder wähle eine Antwort."; return; }
+  st.checked=true;
+  fb.className="fb "+(allOk?"ok":"no");
+  if(allOk) fb.textContent="✓ Richtig! Vergleiche trotzdem deinen Rechenweg mit dem Lösungsvorschlag.";
+  else if(st.ok.some(Boolean)) fb.textContent="Teilweise richtig. Prüfe die rot markierte Antwort noch einmal.";
+  else fb.textContent="✗ Noch nicht richtig. Schau dir den Tipp an und versuche es noch einmal.";
+  const sb=document.querySelector(`#t${i} [data-act=sol]`); sb.disabled=false; sb.removeAttribute("title");
+  document.getElementById("t"+i).classList.toggle("done",allOk);
+  updateScore();
+}
+
+function points(i){ return T[i].parts.reduce((a,p,j)=>a+(state[i].ok[j]?pts(p):0),0); }
+function maxPoints(i){ return T[i].parts.reduce((a,p)=>a+pts(p),0); }
+function updateScore(){
+  const s=T.reduce((a,_,i)=>a+points(i),0);
+  document.getElementById("score").textContent=`${s} von ${TOTAL} Punkten`;
+  document.getElementById("meter").style.width=(s/TOTAL*100)+"%";
+  return s;
+}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.closest(".mc")){
+    const i=+b.dataset.i, j=+b.dataset.j, k=+b.dataset.k;
+    state[i].mc[j]=k;
+    b.parentElement.querySelectorAll("button").forEach(x=>{x.setAttribute("aria-pressed",x===b?"true":"false"); x.classList.remove("ok","no");});
+    return;
+  }
+  const i=+b.dataset.i;
+  if(b.dataset.act==="check") check(i);
+  if(b.dataset.act==="tip"){ const t=document.getElementById("tip"+i); t.hidden=!t.hidden; }
+  if(b.dataset.act==="sol"){ const s=document.getElementById("sol"+i); s.hidden=!s.hidden; b.textContent=s.hidden?"Lösungsvorschlag":"Lösung ausblenden"; }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter" && e.target.matches("input[type=text]")){ check(+e.target.id.slice(2).split("_")[0]); }
+});
+
+document.getElementById("evalBtn").addEventListener("click",()=>{
+  const s=updateScore();
+  const open=[], wrong=[];
+  T.forEach((t,i)=>{ if(!state[i].checked) open.push(t.num); else if(points(i)<maxPoints(i)) wrong.push(t.num); });
+  const pct=Math.round(s/TOTAL*100);
+  let msg=`Du hast <b>${s} von ${TOTAL} Punkten</b> erreicht (${pct} %). `;
+  msg += pct>=90?"Hervorragend, die Trigonometrie sitzt!":pct>=70?"Gut gemacht, nur noch wenige Lücken.":pct>=50?"Ein solider Anfang. Wiederhole die Aufgaben, die noch nicht geklappt haben.":"Hier lohnt sich noch Übung. Nutze die Tipps, den Werkzeugkasten und die Lösungsvorschläge.";
+  if(wrong.length) msg+=`<br>Noch einmal ansehen: Aufgabe ${wrong.join(", ")}.`;
+  if(open.length) msg+=`<br>Noch nicht bearbeitet: Aufgabe ${open.join(", ")}.`;
+  document.getElementById("endText").innerHTML=msg;
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  if(!confirm("Alle Eingaben löschen und neu beginnen?")) return;
+  state.forEach(s=>{s.checked=false; s.ok=s.ok.map(()=>false); s.mc=s.mc.map(()=>null);});
+  render(); updateScore();
+  document.getElementById("endText").textContent="Bearbeite die Aufgaben und klicke dann hier auf „Auswerten“.";
+  window.scrollTo(0,0);
+});
+
+render(); updateScore();
+</script>
+</body>
+</html>
